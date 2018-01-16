@@ -245,7 +245,7 @@ A few use cases include:
 * http://nats.io/blog/nats-for-the-marionette-collective/[Choria/MCollective]:  Server orchestration implemented over NATS.
 * https://nats.io/blog/earthquakewarningnats/[A Circular World]: An early earthquake detection system utilizing NATS as the communications system with back end servers. 
 * http://nats.io/blog/nats-on-autopilot/[Joyent]: Sensor data aggregation implemented through NATS streaming.
-* http://weave.works[Weaveworks][Weaveworks]: General Pub/Sub and simple queue based routing within Weave Cloud SaaS, alongside K8s.
+* http://weave.works[Weaveworks]: General Pub/Sub and simple queue based routing within Weave Cloud SaaS, alongside K8s.
 
 
 === Roadmap
