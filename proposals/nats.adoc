@@ -70,7 +70,7 @@ Some of these include:
  * Last will and testament messages
  * Message groups (e.g. JMSXGroupID)
  * Exactly once delivery
- * Consistency in server state
+ * Consistency in clustered server state
 
 While features like these are valuable to users, they add complexity, and thus 
 overhead.  A simpler feature set ultimately translates into a simple and 
