@@ -15,8 +15,7 @@ driven distributed applications and microservices comprised of many
 components that need to communicate.  Messaging 
 (https://en.wikipedia.org/wiki/Message-oriented_middleware[message oriented middleware]) 
 has evolved to meet these communication needs, and NATS was created
-specifically for next generation cloud native applications
-(see <<Appendix A>> for more detail).
+specifically for next generation cloud native applications.
 
 === NATS Overview
 
@@ -80,7 +79,7 @@ patterns NATS provides includes publish/subscribe, queue subscriptions, and
 request/reply.  These basic patterns supported by NATS provide a foundation 
 to build a scalable and resilient application ecosystem in a cloud environment. 
 NATS goes further, providing additional features facilitating cloud based 
-deployments.  See <<Appendix B>> for more information.
+deployments.  More information about this can be found in the <<Appendix>>.
 
 === The NATS Protocol
 
@@ -182,13 +181,7 @@ favor or position one project over another.  Any corrections are welcome.
 |Language & Platform Coverage
 |Core NATS:  48 known client types, 11 supported by maintainers, 18 contributed by the community. NATS Streaming: 6 client types supported by maintainers, 3 contributed by the community. NATS servers can be compiled on architectures supported by golang.  NATS provides binary distributions for darwin-amd64, linux-306, linux-amd64, linux-arm6, linux-arm64, linux-arm7, windows-386, and windows-amd6, and server  installations through homebrew, chocolatey, and go.
 |18 client types supported across the community and by confluent. Kafka servers can run on platforms supporting java - very wide support.
-|4 maintainer supported client types, over 50 community supported client types. Servers are supported on the following platforms: Linux Windows, NT through 10 Windows Server 2003 through 201, Mac OS X, Solaris, FreeBSD, TRU64, VxWorks The server may be run on many other platforms where erlang can run, but may not officially supported.
-
-
-|Performance 
-|~2M msgs sec footnote:[http://bravenewgeek.com/dissecting-message-queues/]
-|~75k msgs/sec footnote:[http://bravenewgeek.com/dissecting-message-queues/]
-|~1M msgs/sec footnote:[https://cloudplatform.googleblog.com/2014/06/rabbitmq-on-google-compute-engine.html]
+|At least 10 client platforms footnote:[http://www.rabbitmq.com/devtools.html] that are maintainer supported with over 50 community supported client types. Servers are supported on the following platforms: Linux Windows, NT through 10 Windows Server 2003 through 201, Mac OS X, Solaris, FreeBSD, TRU64, VxWorks The server may be run on many other platforms where erlang can run, but may not officially supported.
 
 |Delivery Guarantees
 |At most once, at least once
@@ -226,6 +219,17 @@ favor or position one project over another.  Any corrections are welcome.
 |RabbitMQ has a rich set of plugins, including protocols (MQTT, STOMP), websockets, and various authorization and authentication plugins.
 
 |===
+
+==== Performance
+Regarding performance, to our knowledge there has not been a third party
+benchmark made public that includes NATS, Kafka, and RabbitMQ. We feel
+strongly that benchmarks are most accepted and unbiased when provided by
+third parties.
+
+Here are two third party benchmarks to reference:
+
+** http://bravenewgeek.com/dissecting-message-queues/[Dissecting Message Queues] comparing NATS and Kafka.
+** https://cloudplatform.googleblog.com/2014/06/rabbitmq-on-google-compute-engine.html[RabbitMQ on Google Compute Engine].
 
 === Notable Use Cases
 NATS, being as flexible as it is, covers a variety of use cases, from acting
@@ -354,30 +358,7 @@ to sign anything. We would like to find a straightforward process that
 meets the CNCF’s requirements - but also that is not overly burdensome 
 for developers to interact with.
 
-=== Appendices
-
-==== Appendix A
-
-*Messaging in CNCF*
-
-As software has matured over the last 30 years, we’ve witnessed a move from 
-monolithic mainframe based applications toward distributed applications
-comprised of many discrete lightweight components - the modern distributed
-systems landscape we see today.
-
-More specifically, today’s landscape emphasizes microservices, containers,
-scalability, and total flexibility - the ability to scale and adapt a
-service immediately depending on the needs of the business - and this
-paradigm is only accelerating.
-
-This emphasizes the need to transfer data between processes quickly, reliably
-and securely.  Many underestimate the complex issues around addressability and
-routing, batching data, ordering of data, handling aberrant network conditions,
-security and authorization, and ensuring the availability of data. Messaging
-was born to address this, and NATS was created specifically for next generation
-cloud native applications.
-
-==== Appendix B
+=== Appendix
 
 *Messaging Patterns in NATS*
 
