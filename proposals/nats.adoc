@@ -10,9 +10,9 @@ applying these to a cloud native environment.
 
 === Why does CNCF need messaging?
 
-Software has matured from large mainframe based applications to event
-driven distributed applications comprised of many components that 
-must communicate.  Messaging 
+Software has matured from large monolith applications to event
+driven distributed applications and microservices comprised of many
+components that need to communicate.  Messaging 
 (https://en.wikipedia.org/wiki/Message-oriented_middleware[message oriented middleware]) 
 has evolved to meet these communication needs, and NATS was created
 specifically for next generation cloud native applications
@@ -20,7 +20,7 @@ specifically for next generation cloud native applications
 
 === NATS Overview
 
-NATS is a seven year old messaging project, built from the ground up to be 
+NATS is a mature, seven year old messaging technology, built from the ground up to be 
 cloud native, implementing the publish/subscribe, request/reply and 
 distributed queue patterns to help create a performant and secure 
 method of InterProcess Communication (IPC).  Simplicity, performance, 
@@ -32,36 +32,32 @@ https://github.com/nats-io/roadmap/blob/master/architecture/DESIGN.md[“NATS De
 NATS is based on a client-server architecture with servers that can be 
 clustered to operate as a single entity. Clients connect to these
 clusters to exchange data encapsulated in messages.  An overview
-of NATS architecture can be found in 
+of the NATS architecture can be found in 
 https://github.com/nats-io/roadmap/blob/master/architecture/ARCHITECTURE.md[“Understanding NATS Architecture”].
 
-Core NATS was designed to work like a nervous system, ignoring lost messages 
-where applications are expected to know how to recover and to resend them; 
-similar to user data flow on the internet.  However, some use cases require 
-a guarantee of delivery, or storage and replay of data, in which case the 
-optional, streaming component of NATS can be deployed.
+Core NATS was designed around fire and forget, or *at-most-once* semantics, similar to how neurons fire in the brain.
+However, some use cases may require a guarantee of delivery, and *at-least-once* pattern utilizing 
+storage and replay of data. In this case the optional streaming component of NATS can be deployed and utilized.
 
 Most messaging systems do provide a mechanism to persist messages and ensure 
 message delivery.  NATS does this through log based streaming; a way to store 
-and replay messages.  Streaming subscribers can retrieve messages published 
+and replay messages. Streaming subscribers can retrieve messages published 
 when they were offline, or replay a series of messages.  Streaming inherently 
 provides a buffer in the distributed application ecosystem, increasing 
-stability.  This allows applications to offload local message caching and 
-buffering logic into NATS, and ensures a message is never lost.
+stability and matching consumer ability to receive messages.  This allows applications to offload
+local message caching and buffering logic into NATS Streaming, and ensures a message will be delivered.
 
-NATS supports two modes of delivery, *at most once*, and *at least once*.  
-At most once means that a message can be lost in flight and it is up to the 
-application to ensure data has been delivered, resending messages if 
-necessary.  This is sufficient for many modern cloud native applications. At
-least once delivery, provided through NATS streaming, means a message will 
-always be delivered, but may be delivered more than once 
-(with a “redelivered” flag) during unusual network conditions.  It is worth
-noting that there is another delivery mode, *exactly once*, which guarantees 
-a message will always delivered once and only once.
+NATS supports both of these modes of delivery, *at-most-once*, and *at-least-once*.  
+At-most-once means that a message will be sent to a subscriber only one time, and can be lost in flight.
+It is up to the application, or the system, to ensure data has been delivered, resending messages as
+necessary.  This is sufficient for most modern cloud native applications. At-least-once delivery,
+provided through NATS Streaming, means a message will always be delivered, but may be delivered more than once.
+It is worth noting that there is another delivery mode, *exactly-once*, which guarantees 
+a message will always be delivered once and only once. This mode is not supported by NATS.
 
 ==== Trade-offs
 
-As stated, NATS design goals include simplicity and performance.  In order to 
+As stated, NATS' design goals include simplicity and performance.  In order to 
 achieve this, there are a number of notable features NATS does not provide.  
 Some of these include:
  
@@ -75,14 +71,14 @@ Some of these include:
 While features like these are valuable to users, they add complexity, and thus 
 overhead.  A simpler feature set ultimately translates into a simple and 
 direct fastpath that a message takes, allowing NATS to optimize for raw
-performance and maintain a small footprint. 
+performance, availability to all users, and to maintain a small memory footprint. 
 
 === Messaging Patterns
 
 Messaging systems typically provide a number of usage patterns; The major 
 patterns NATS provides includes publish/subscribe, queue subscriptions, and 
-request/reply.  These basic patterns supported by NATS provides a foundation 
-to build a scalable, resilient application ecosystem in a cloud environment. 
+request/reply.  These basic patterns supported by NATS provide a foundation 
+to build a scalable and resilient application ecosystem in a cloud environment. 
 NATS goes further, providing additional features facilitating cloud based 
 deployments.  See <<Appendix B>> for more information.
 
@@ -113,20 +109,20 @@ and clients, allowing existing servers to automatically route with new
 servers and clients to automatically update their list of available 
 NATS servers.  This means you cluster a few seed servers 
 in your cloud, then add additional NATS servers (referencing the seed servers)
-as needed - no downtime or reconfiguration of existing servers or clients.
+as needed - no downtime or reconfiguration of existing servers or clients is needed.
 
 ==== Resiliency
-NATS prioritizes the health of the system as a whole rather than attempting 
+NATS prioritizes the health and availability of the system as a whole rather than attempting 
 to service an individual client or server, creating a foundation for stable
 and resilient systems.  In traditional messaging systems, when a consumer
 is slow to process messages, resources can be used trying to accommodate it
-at the expense of the entire system, potentially leading to crashes at scale.
-Core NATS identifies a slow consumer and drops messages (or the consumer 
-entirely) to prevent back-pressure affecting the entire system.  
+at the expense of the entire system, potentially leading to instability and errors.
+Core NATS identifies a slow consumer and drops messages, or the consumer's connection 
+entirely, to prevent back-pressure affecting the entire system and other users.  
 
-NATS Streaming, built upon NATS, has this same resiliency but takes a step 
+NATS Streaming, built upon NATS, has this same resiliency but takes it a step 
 further to avoid the problem of slow consumers entirely in that it is 
-self-metering to the throughput of each consumer.
+self-metering to the throughput rate of each consumer.
 
 ==== No Dependencies and Low Overhead
 
@@ -140,20 +136,20 @@ up very quickly allowing NATS to work well in container orchestration systems.
 
 Messaging is simply a form of IPC - there are other ways to transfer
 information, for example using a coordination mechanism such as a distributed
- hash table or a database - these may be more appropriate depending on the 
+hash table or a database - these may be more appropriate depending on the 
 use case.  Generally though, messaging provides better features in terms of 
-scalability and throughput when compared to other forms of IPC, and does 
+diverse messaging patterns, scalability and throughput when compared to other forms of IPC, and does 
 not require as much additional custom tooling and error handling.
 
 ==== Why not use etcd?
 
 NATS is designed to deliver application data in a distributed system.  
 NATS does this by packaging application data in a message and sending it 
-to endpoints.  Various messaging patterns (request reply, publish/subscribe) 
+to endpoints.  Various messaging patterns (request reply, publish/subscribe, distributed queues) 
 are supported to communicate with individual consumers or to fan out and send
 one message to many consumers.  It is up to the application to consider 
 messages as atomic units of data, or as elements of a stream -  real-time with
- Core NATS, or as a historical log of messages NATS streaming.
+Core NATS, or as a historical log of messages NATS streaming.
 
 Etcd was designed to solve the problem of distributed system coordination and
 metadata storage.  It persists data in a key value store, and supports many
@@ -170,8 +166,8 @@ a value in etcd is more expensive than a message sent in NATS due to the
 consistency guarantees etcd provides. If you have frequently updating values,
 or require an extremely high frequency of update, NATS is a better choice.
 
-That being said, NATS and etcd can complement each other, with etcd for
-coordination and NATS for data distribution.
+NATS and etcd can also complement each other, with etcd for coordination and NATS
+for data distribution.
 
 === NATS Feature Comparison
 
@@ -345,7 +341,7 @@ Moreover, NATS has very strong existing synergy and inertia with other CNCF
 projects, and is used heavily in conjunction with projects like: Kubernetes,
 Prometheus, gRPC, Fluentd, Linkerd, and Containerd to name a few. The broad
 client coverage, and simplicity of the protocol will make supporting and
-integrating with future cloud native systems and paradigms straightforward
+integrating with future cloud native systems and paradigms straight forward
 as well.
 
 *Additional CNCF asks:*
