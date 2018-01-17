@@ -74,7 +74,7 @@ performance, availability to all users, and to maintain a small memory footprint
 
 === Messaging Patterns
 
-Messaging systems typically provide a number of usage patterns; The major 
+Messaging systems typically provide a number of usage patterns. The major 
 patterns NATS provides includes publish/subscribe, queue subscriptions, and 
 request/reply.  These basic patterns supported by NATS provide a foundation 
 to build a scalable and resilient application ecosystem in a cloud environment. 
@@ -362,7 +362,7 @@ for developers to interact with.
 
 *Messaging Patterns in NATS*
 
-Messaging systems typically provide a number of usage patterns; The major
+Messaging systems typically provide a number of usage patterns. The major
 patterns NATS provides include the following:
 
 ===== Publish/Subscribe
@@ -381,7 +381,7 @@ NATS can be described as a layer 7 load balancer - it routes application data
 based on message data, the subject, which is provided by the producing
 application.  In discussing load balancing specific to NATS we are referring
 to the competing consumer pattern in the form of queue subscribers.  In this
-pattern, the NATS server distributes messages amongst multiple subscribers
+pattern, the NATS server distributes messages randomly amongst multiple subscribers
 working together to each individually process messages from a single virtual
 “queue”. For example, one might run several identical applications queue
 subscribed on the same subject.  The NATS server (or streaming server) will
