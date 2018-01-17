@@ -79,7 +79,7 @@ patterns NATS provides includes publish/subscribe, queue subscriptions, and
 request/reply.  These basic patterns supported by NATS provide a foundation 
 to build a scalable and resilient application ecosystem in a cloud environment. 
 NATS goes further, providing additional features facilitating cloud based 
-deployments.  More information about this can be found in the <<Appendix>>.
+deployments.  More information about this can be found in <<Appendix A>>.
 
 === The NATS Protocol
 
@@ -137,36 +137,10 @@ Messaging is simply a form of IPC - there are other ways to transfer
 information, for example using a coordination mechanism such as a distributed
 hash table or a database - these may be more appropriate depending on the 
 use case.  Generally though, messaging provides better features in terms of 
-diverse messaging patterns, scalability and throughput when compared to other forms of IPC, and does 
-not require as much additional custom tooling and error handling.
-
-==== Why not use etcd?
-
-NATS is designed to deliver application data in a distributed system.  
-NATS does this by packaging application data in a message and sending it 
-to endpoints.  Various messaging patterns (request reply, publish/subscribe, distributed queues) 
-are supported to communicate with individual consumers or to fan out and send
-one message to many consumers.  It is up to the application to consider 
-messages as atomic units of data, or as elements of a stream -  real-time with
-Core NATS, or as a historical log of messages NATS streaming.
-
-Etcd was designed to solve the problem of distributed system coordination and
-metadata storage.  It persists data in a key value store, and supports many
-concurrency primitives including distributed locking and leadership election.
-There are recipes for queueing using unique keys, as well as a gRpc API to
-stream updates - this is where we begin to see overlap.
-
-The fundamental decision of whether to use NATS or etcd can be based on a few
-factors.  One factor is the structure of data -  whether your distributed
-application can benefit most from data structured as a key-value store versus
-a stream.  If your application benefits from key/value data storage, etcd is a
-better choice.  The second being the frequency of the updates.  Any update to
-a value in etcd is more expensive than a message sent in NATS due to the
-consistency guarantees etcd provides. If you have frequently updating values,
-or require an extremely high frequency of update, NATS is a better choice.
-
-NATS and etcd can also complement each other, with etcd for coordination and NATS
-for data distribution.
+diverse messaging patterns, scalability and throughput when compared to other 
+forms of IPC, and does not require as much additional custom tooling and
+error handling.  We address a specific question asked of us, 
+"Why not use etcd?" in <<Appendix B>>.
 
 === NATS Feature Comparison
 
@@ -221,10 +195,10 @@ favor or position one project over another.  Any corrections are welcome.
 |===
 
 ==== Performance
-Regarding performance, to our knowledge there has not been a third party
-benchmark made public that includes NATS, Kafka, and RabbitMQ. We feel
-strongly that benchmarks are most accepted and unbiased when provided by
-third parties.
+We feel NATS performance is industry leading. However, to our knowledge there 
+has not been a third party benchmark made public that includes NATS, Kafka, 
+and RabbitMQ. We feel strongly that benchmarks by third party are unbiased 
+and widely accepted.
 
 Here are two third party benchmarks to reference:
 
@@ -333,7 +307,9 @@ to sign anything. We would like to find a straightforward process that
 meets the CNCF’s requirements - but also that is not overly burdensome 
 for developers to interact with.
 
-=== Appendix
+=== Appendices
+
+=== Appendix A
 
 *Messaging Patterns in NATS*
 
@@ -373,3 +349,33 @@ NATS supports request/reply through use of unique subjects, still allowing for
 a loose coupling of a requestor and replier(s).  The request reply pattern
 involves sending a request message, and expecting a reply.  Often times the
 application will block until the reply is received.
+
+==== Appendix B
+
+*Why not use etcd?*
+
+NATS is designed to deliver application data in a distributed system.  
+NATS does this by packaging application data in a message and sending it 
+to endpoints.  Various messaging patterns (request reply, publish/subscribe, distributed queues) 
+are supported to communicate with individual consumers or to fan out and send
+one message to many consumers.  It is up to the application to consider 
+messages as atomic units of data, or as elements of a stream -  real-time with
+Core NATS, or as a historical log of messages NATS streaming.
+
+Etcd was designed to solve the problem of distributed system coordination and
+metadata storage.  It persists data in a key value store, and supports many
+concurrency primitives including distributed locking and leadership election.
+There are recipes for queueing using unique keys, as well as a gRpc API to
+stream updates - this is where we begin to see overlap.
+
+The fundamental decision of whether to use NATS or etcd can be based on a few
+factors.  One factor is the structure of data -  whether your distributed
+application can benefit most from data structured as a key-value store versus
+a stream.  If your application benefits from key/value data storage, etcd is a
+better choice.  The second being the frequency of the updates.  Any update to
+a value in etcd is more expensive than a message sent in NATS due to the
+consistency guarantees etcd provides. If you have frequently updating values,
+or require an extremely high frequency of update, NATS is a better choice.
+
+NATS and etcd can also complement each other, with etcd for coordination and NATS
+for data distribution.
