@@ -260,7 +260,7 @@ coverage of >80% for client APIs, and >90% for server code.
 * Google Groups: https://groups.google.com/forum/#!forum/natsio
 * Slideshare: https://www.slideshare.net/nats_io/presentations
 * Reddit: https://www.reddit.com/r/NATS_io/
-* Slack: (currently by invite, with ~550 members: http://bit.ly/2xsN6UE)
+* Slack: (currently by invite, with ~550 members: http://bit.ly/2DMdR6G)
 
 *Existing project sponsorship:* Synadia
 
