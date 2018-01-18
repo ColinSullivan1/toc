@@ -49,9 +49,8 @@ local message caching and buffering logic into NATS Streaming, and ensures a mes
 NATS supports both of these modes of delivery, *at-most-once*, and *at-least-once*.  
 At-most-once means that a message will be sent to a subscriber only one time, and can be lost in flight.
 It is up to the application, or the system, to ensure data has been delivered, resending messages as
-necessary.  This is sufficient for most modern cloud native applications. At-least-once delivery,
-provided through NATS Streaming, means a message will always be delivered, but may be delivered more than once.
-It is worth noting that there is another delivery mode, *exactly-once*, which guarantees 
+necessary.  This is sufficient for most modern cloud native applications, since for example NATS based Request/Response can be used to ensure that a message has been delivered and processed, thus providing an end-to-end delivery guarantee. 
+At-least-once delivery, provided through NATS Streaming, means a message will always be delivered, but may be delivered more than once. It is worth noting that there is another delivery mode, *exactly-once*, which guarantees 
 a message will always be delivered once and only once. This mode is not supported by NATS.
 
 ==== Trade-offs
