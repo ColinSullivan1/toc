@@ -270,13 +270,13 @@ coverage of >80% for client APIs, and >90% for server code.
 * NATS Server and NATS Streaming Clients: Over 100 contributors distributed across dozens of companies
 
 *Sample Adopters:* Apcera, Apporeto, Clarifai, Comcast, General Electric (GE),
-Greta.io, CloudFoundry, HTC, Samsung, Netlify, Pivotal, Platform9, Sensay, Workiva, 
-and VMware.
+Greta.io, CloudFoundry, HTC, Samsung, Netlify, Pivotal, Platform9, Sensay,
+Workiva, VMware.
 
 *Sample Integrators:*
 
-* *Functions as a Service:* OpenFaaS, Fission.io, Storage, Minio, StorageOS,
-* *Cloud Computing, Monitoring and Tooling:* Pivotal, VMware, Hemera, RapidLoop, SpindocEvent Gateways
+* *Functions as a Service:* OpenFaaS, Fission.io, Storage, Minio, StorageOS
+* *Cloud Computing, Monitoring and Tooling:* Pivotal, VMware, Hemera, RapidLoop, Spindoc
 * *Event Gateways:* Apache Camel
 
 *Statement on Alignment with CNCF mission:* Our team believes NATS to be a
