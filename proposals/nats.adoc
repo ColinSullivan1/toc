@@ -309,7 +309,7 @@ for developers to interact with.
 
 === Appendices
 
-=== Appendix A
+==== Appendix A
 
 *Messaging Patterns in NATS*
 
@@ -352,7 +352,7 @@ application will block until the reply is received.
 
 ==== Appendix B
 
-*Why not use etcd?*
+===== Why not use etcd?
 
 NATS is designed to deliver application data in a distributed system.  
 NATS does this by packaging application data in a message and sending it 
